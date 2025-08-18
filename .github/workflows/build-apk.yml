@@ -48,16 +48,30 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
           
-    - name: Make gradlew executable
-      run: chmod +x android/gradlew
-      
-    - name: Clean build
+    - name: Setup Gradle Wrapper
       working-directory: android
-      run: ./gradlew clean
-      
-    - name: Build debug APK
+      run: |
+        # Check if gradlew exists
+        if [ ! -f "gradlew" ]; then
+          echo "gradlew not found, generating wrapper"
+          gradle wrapper
+        fi
+        
+        # Make it executable
+        chmod +x gradlew || echo "chmod failed"
+        ls -la gradlew
+        
+    - name: Make gradlew executable and build
       working-directory: android
-      run: ./gradlew assembleDebug --no-daemon --stacktrace
+      run: |
+        ls -la
+        chmod +x gradlew || echo "chmod failed, trying alternative"
+        if [ -f "gradlew" ]; then
+          ./gradlew clean assembleDebug --no-daemon --stacktrace
+        else
+          echo "gradlew not found, using gradle command"
+          gradle clean assembleDebug --no-daemon --stacktrace
+        fi
       
     - name: Upload APK
       uses: actions/upload-artifact@v4

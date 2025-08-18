@@ -40,7 +40,10 @@ jobs:
         run: npx expo prebuild --platform android
 
       - name: Make gradlew executable
-        run: chmod +x android/gradlew
+        run: |
+          ls -la android/
+          chmod +x android/gradlew
+          ls -la android/gradlew
 
       - name: Build Android APK
         working-directory: ./android

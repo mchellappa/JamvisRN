@@ -177,7 +177,11 @@ ios/fastlane/test_output
 # Android
 android/app/build/
 android/build/
-android/gradle/
-android/gradlew*
 android/.gradle/
 android/local.properties
+
+# Keep gradlew and gradlew.bat - these are needed for building
+# android/gradlew*  # REMOVED - we need these files
+
+# Keep gradle wrapper directory - needed for building
+# android/gradle/  # REMOVED - we need gradle/wrapper/
