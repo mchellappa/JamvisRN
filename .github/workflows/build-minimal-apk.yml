@@ -1,0 +1,100 @@
+name: Build Minimal APK (No Navigation)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'package.minimal.json'
+      - 'SimpleApp.js'
+      - '.github/workflows/build-minimal-apk.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: 34
+        build-tools: '34.0.0'
+        ndk-version: '25.1.8937393'
+        
+    - name: Setup minimal dependencies
+      run: |
+        # Backup original files
+        cp package.json package.json.backup
+        cp App.js App.js.backup || echo "No App.js to backup"
+        
+        # Use minimal versions
+        cp package.minimal.json package.json
+        cp SimpleApp.js App.js
+        
+    - name: Install minimal dependencies
+      run: |
+        npm cache clean --force
+        rm -rf node_modules package-lock.json
+        npm install --legacy-peer-deps
+        
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-minimal-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-minimal-
+          
+    - name: Setup Gradle Wrapper
+      working-directory: android
+      run: |
+        # Check if gradlew exists
+        if [ ! -f "gradlew" ]; then
+          echo "gradlew not found, generating wrapper"
+          gradle wrapper
+        fi
+        
+        # Make it executable
+        chmod +x gradlew || echo "chmod failed"
+        ls -la gradlew
+        
+        # Clean gradle cache to avoid version conflicts
+        ./gradlew clean || echo "Initial clean failed"
+        
+    - name: Build minimal APK
+      working-directory: android
+      run: |
+        ls -la
+        chmod +x gradlew || echo "chmod failed"
+        ./gradlew clean assembleDebug --no-daemon --stacktrace --info
+      
+    - name: Upload Minimal APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: jamvis-minimal-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
+        
+    - name: Restore original files
+      run: |
+        # Restore backups
+        cp package.json.backup package.json || echo "No backup to restore"
+        cp App.js.backup App.js || echo "No App.js backup to restore"
+      if: always()

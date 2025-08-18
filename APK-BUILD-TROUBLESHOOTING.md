@@ -1,5 +1,24 @@
 # APK Build Troubleshooting Guide
 
+## Recent Fixes Applied ✅
+
+### Dependency Compatibility Issues (Fixed)
+The project now uses React Native 0.73.6 compatible versions:
+- `react-native-screens`: 3.25.0 (was 3.29.0 - too new)
+- `react-native-safe-area-context`: 4.5.4 (was 4.8.2 - too new) 
+- `@react-navigation/*`: 6.x (was 7.x - unstable with RN 0.73.6)
+
+### React Version Conflicts (Fixed)
+- `react`: 18.2.0 (exact version)
+- `react-dom`: 18.2.0 (exact version, was ^18.2.0 causing 18.3.1)
+- Added `resolutions` field to force React 18.2.0
+- GitHub Actions now uses `--legacy-peer-deps` flag
+
+### Gradle Wrapper Issues (Fixed)
+- Added `android/gradlew` and `android/gradlew.bat` to repository
+- Removed these files from `.gitignore`
+- Updated GitHub Actions to handle gradlew permissions properly
+
 ## SSL Certificate Issues Resolution
 
 The SSL certificate errors you're encountering are common in corporate environments. Here are several solutions:
