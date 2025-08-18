@@ -48,9 +48,29 @@ jobs:
           chmod +x android/gradlew
           ls -la android/gradlew
 
-      - name: Build Android APK
+      - name: Build Android APK (with full scan)
         working-directory: ./android
-        run: ./gradlew assembleDebug
+        run: |
+          echo "=== GRADLE VERSION SCAN ==="
+          ./gradlew --version
+          
+          echo "=== JAVA VERSION SCAN ==="
+          java -version
+          javac -version
+          
+          echo "=== ANDROID SDK SCAN ==="
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          ls -la $ANDROID_HOME/build-tools/ || echo "No build-tools found"
+          
+          echo "=== PROJECT DEPENDENCIES SCAN ==="
+          ./gradlew dependencies --configuration debugCompileClasspath || echo "Dependencies scan failed"
+          
+          echo "=== BUILD CONFIGURATION SCAN ==="
+          cat app/build.gradle | grep -A 10 -B 10 "compileSdk\|targetSdk\|minSdk" || echo "No SDK config found"
+          
+          echo "=== STARTING BUILD WITH FULL SCAN ==="
+          ./gradlew assembleDebug --scan
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

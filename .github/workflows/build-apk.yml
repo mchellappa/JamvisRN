@@ -66,16 +66,39 @@ jobs:
         # Clean gradle cache to avoid version conflicts
         ./gradlew clean || echo "Initial clean failed"
         
-    - name: Make gradlew executable and build
+    - name: Make gradlew executable and build (with full scan)
       working-directory: android
       run: |
         ls -la
         chmod +x gradlew || echo "chmod failed, trying alternative"
+        
         if [ -f "gradlew" ]; then
-          ./gradlew clean assembleDebug --no-daemon --stacktrace --info
+          echo "=== GRADLE VERSION SCAN ==="
+          ./gradlew --version
+          
+          echo "=== JAVA VERSION SCAN ==="
+          java -version
+          javac -version
+          
+          echo "=== ANDROID SDK SCAN ==="
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          ls -la $ANDROID_HOME/build-tools/ || echo "No build-tools found"
+          
+          echo "=== PROJECT DEPENDENCIES SCAN ==="
+          ./gradlew dependencies --configuration debugCompileClasspath || echo "Dependencies scan failed"
+          
+          echo "=== BUILD CONFIGURATION SCAN ==="
+          cat app/build.gradle | grep -A 10 -B 10 "compileSdk\|targetSdk\|minSdk" || echo "No SDK config found"
+          
+          echo "=== KOTLIN VERSION SCAN ==="
+          cat build.gradle | grep kotlin || echo "No kotlin version found"
+          
+          echo "=== STARTING BUILD WITH FULL SCAN ==="
+          ./gradlew clean assembleDebug --no-daemon --stacktrace --info --scan
         else
-          echo "gradlew not found, using gradle command"
-          gradle clean assembleDebug --no-daemon --stacktrace --info
+          echo "gradlew not found, using gradle command with scan"
+          gradle clean assembleDebug --no-daemon --stacktrace --info --scan
         fi
       
     - name: Upload APK
