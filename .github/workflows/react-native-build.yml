@@ -31,7 +31,10 @@ jobs:
           build-tools: '34.0.0'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm cache clean --force
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Setup Expo
         run: npm install -g @expo/cli@latest

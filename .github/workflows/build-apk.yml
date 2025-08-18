@@ -36,7 +36,9 @@ jobs:
         
     - name: Install dependencies
       run: |
-        npm ci
+        npm cache clean --force
+        rm -rf node_modules package-lock.json
+        npm install
         
     - name: Cache Gradle dependencies
       uses: actions/cache@v4
@@ -61,16 +63,19 @@ jobs:
         chmod +x gradlew || echo "chmod failed"
         ls -la gradlew
         
+        # Clean gradle cache to avoid version conflicts
+        ./gradlew clean || echo "Initial clean failed"
+        
     - name: Make gradlew executable and build
       working-directory: android
       run: |
         ls -la
         chmod +x gradlew || echo "chmod failed, trying alternative"
         if [ -f "gradlew" ]; then
-          ./gradlew clean assembleDebug --no-daemon --stacktrace
+          ./gradlew clean assembleDebug --no-daemon --stacktrace --info
         else
           echo "gradlew not found, using gradle command"
-          gradle clean assembleDebug --no-daemon --stacktrace
+          gradle clean assembleDebug --no-daemon --stacktrace --info
         fi
       
     - name: Upload APK
