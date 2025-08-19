@@ -65,7 +65,7 @@ export default function EnhancedApp() {
   const renderHome = () => (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>JamvisRN</Text>
+        <Text style={styles.title}>Jamvis</Text>
         <Text style={styles.subtitle}>Health & Fitness Companion</Text>
       </View>
       

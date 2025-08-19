@@ -1,6 +1,6 @@
-# Local Android APK Build Script for JamvisRN
+# Local Android APK Build Script for Jamvis
 Write-Host "========================================" -ForegroundColor Green
-Write-Host "Building JamvisRN Android APK locally" -ForegroundColor Green
+Write-Host "Building Jamvis Android APK locally" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 
 # Function to check if a command exists
@@ -66,7 +66,7 @@ if (Test-Path $apkPath) {
     Write-Host "========================================" -ForegroundColor Green
     
     # Copy APK to root directory for easy access
-    $targetApk = "JamvisRN-debug.apk"
+    $targetApk = "Jamvis-debug.apk"
     Copy-Item $apkPath $targetApk -Force
     if (Test-Path $targetApk) {
         Write-Host "APK copied to: $targetApk" -ForegroundColor Green

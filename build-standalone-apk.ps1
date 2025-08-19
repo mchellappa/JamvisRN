@@ -1,6 +1,6 @@
-# Enhanced Android APK Build Script for JamvisRN with Standalone Bundle
+# Enhanced Android APK Build Script for Jamvis with Standalone Bundle
 Write-Host "========================================" -ForegroundColor Green
-Write-Host "Building JamvisRN Android APK with Standalone Bundle" -ForegroundColor Green
+Write-Host "Building Jamvis Android APK with Standalone Bundle" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 
 # Function to check if a command exists
@@ -55,7 +55,7 @@ if (-not (Test-Path $assetsDir)) {
 }
 
 # Create the bundle
-npx react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+npx react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res --reset-cache
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "JavaScript bundle created successfully!" -ForegroundColor Green
@@ -97,7 +97,7 @@ if (Test-Path $apkPath) {
     Write-Host "========================================" -ForegroundColor Green
     
     # Copy APK to root directory for easy access
-    $targetApk = "JamvisRN-standalone.apk"
+    $targetApk = "Jamvis-standalone.apk"
     Copy-Item $apkPath $targetApk -Force
     if (Test-Path $targetApk) {
         Write-Host "Standalone APK copied to: $targetApk" -ForegroundColor Green

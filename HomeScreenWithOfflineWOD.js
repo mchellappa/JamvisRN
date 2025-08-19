@@ -278,14 +278,14 @@ class OfflineDataManager {
 
 export default function HomeScreenWithWODMeals() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-  const [dailyData, setDailyData] = useState<DailyData | null>(null);
+  const [dailyData, setDailyData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [expandedSections, setExpandedSections] = useState({
     wod: false,
     meals: false
   });
-  const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
-  const [loggedMeals, setLoggedMeals] = useState<Set<string>>(new Set());
+  const [completedExercises, setCompletedExercises] = useState(new Set());
+  const [loggedMeals, setLoggedMeals] = useState(new Set());
 
   useEffect(() => {
     loadDailyData();
@@ -401,7 +401,7 @@ export default function HomeScreenWithWODMeals() {
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>JamvisRN</Text>
+          <Text style={styles.title}>Jamvis</Text>
           <View style={styles.offlineIndicator}>
             <Text style={styles.offlineText}>🔴 Offline Mode</Text>
           </View>
