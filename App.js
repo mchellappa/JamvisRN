@@ -1,6 +1,6 @@
 import React from 'react';
-import HomeScreenWithOfflineWOD from './HomeScreenWithOfflineWOD';
+import SimpleJamvisApp from './SimpleJamvisApp';
 
 export default function App() {
-  return <HomeScreenWithOfflineWOD />;
+  return <SimpleJamvisApp />;
 }
