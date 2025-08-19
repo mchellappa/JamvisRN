@@ -276,7 +276,7 @@ class OfflineDataManager {
   }
 }
 
-export default function HomeScreenWithWODMeals() {
+function HomeScreenWithWODMeals() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [dailyData, setDailyData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -937,3 +937,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+export default HomeScreenWithWODMeals;
