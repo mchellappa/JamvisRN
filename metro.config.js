@@ -14,7 +14,14 @@ const config = {
       mangle: {
         keep_fnames: true,
       },
-      ecma: 5, // Target ES5 for backward compatibility
+      // Allow modern syntax but target older runtimes
+      ecma: 2015, // Allow ES6 parsing but output ES5-compatible code
+      compress: {
+        ecma: 5, // Ensure compression is ES5-compatible
+      },
+      output: {
+        ecma: 5, // Ensure output is ES5-compatible
+      },
     },
   },
 };
