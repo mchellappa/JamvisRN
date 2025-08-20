@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -19,6 +20,7 @@ class BackwardCompatibleJamvisApp extends Component {
       mealData: null,
       currentDate: new Date(),
       loading: true,
+      isOldDevice: Platform.Version < 21, // Detect if running on old Android
     };
     
     this.loadData = this.loadData.bind(this);
@@ -49,9 +51,21 @@ class BackwardCompatibleJamvisApp extends Component {
     var self = this;
     var dateKey = this.getDateString(this.state.currentDate);
     
-    AsyncStorage.getItem('jamvis_workout_' + dateKey)
+    // Use safer AsyncStorage for old devices
+    var safeAsyncStorage = {
+      getItem: function(key) {
+        try {
+          return AsyncStorage.getItem(key);
+        } catch (error) {
+          console.log('AsyncStorage getItem error:', error);
+          return Promise.resolve(null);
+        }
+      }
+    };
+    
+    safeAsyncStorage.getItem('jamvis_workout_' + dateKey)
       .then(function(workoutData) {
-        AsyncStorage.getItem('jamvis_meal_' + dateKey)
+        safeAsyncStorage.getItem('jamvis_meal_' + dateKey)
           .then(function(mealData) {
             self.setState({
               workoutData: workoutData ? JSON.parse(workoutData) : self.getDefaultWorkout(),
@@ -81,8 +95,13 @@ class BackwardCompatibleJamvisApp extends Component {
   saveData() {
     var dateKey = this.getDateString(this.state.currentDate);
     
-    AsyncStorage.setItem('jamvis_workout_' + dateKey, JSON.stringify(this.state.workoutData));
-    AsyncStorage.setItem('jamvis_meal_' + dateKey, JSON.stringify(this.state.mealData));
+    try {
+      AsyncStorage.setItem('jamvis_workout_' + dateKey, JSON.stringify(this.state.workoutData));
+      AsyncStorage.setItem('jamvis_meal_' + dateKey, JSON.stringify(this.state.mealData));
+    } catch (error) {
+      console.log('Error saving data:', error);
+      // Fail silently on old devices to avoid crashes
+    }
   }
 
   getDefaultWorkout() {
@@ -159,6 +178,9 @@ class BackwardCompatibleJamvisApp extends Component {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Jamvis</Text>
           <Text style={styles.dateText}>{this.getDateString(this.state.currentDate)}</Text>
+          {this.state.isOldDevice && (
+            <Text style={styles.compatibilityNotice}>🛡️ Legacy Mode</Text>
+          )}
         </View>
         
         <ScrollView style={styles.content}>
@@ -238,6 +260,13 @@ var styles = StyleSheet.create({
     color: '#bdc3c7',
     textAlign: 'center',
     marginTop: 5,
+  },
+  compatibilityNotice: {
+    fontSize: 12,
+    color: '#f39c12',
+    textAlign: 'center',
+    marginTop: 3,
+    fontWeight: 'bold',
   },
   loadingContainer: {
     flex: 1,

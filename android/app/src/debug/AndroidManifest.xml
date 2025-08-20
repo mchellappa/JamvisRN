@@ -2,8 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Override React Native library minSdk requirement for debug builds -->
-    <uses-sdk tools:overrideLibrary="com.facebook.react" />
+    <!-- Comprehensive override for debug builds - Android 4.4 (API 19) compatibility -->
+    <uses-sdk tools:overrideLibrary="
+        com.facebook.react,
+        com.facebook.fresco,
+        com.facebook.imagepipeline,
+        com.facebook.soloader,
+        com.facebook.hermes,
+        com.facebook.jni,
+        com.facebook.flipper,
+        com.facebook.yoga,
+        com.facebook.common,
+        com.facebook.datasource,
+        com.facebook.drawee,
+        com.facebook.imagepipeline,
+        com.facebook.react.bridge,
+        com.facebook.react.common,
+        com.facebook.react.module,
+        com.facebook.react.uimanager,
+        com.reactnativecommunity.asyncstorage,
+        androidx.lifecycle,
+        androidx.core,
+        androidx.annotation,
+        androidx.fragment,
+        androidx.activity" />
 
     <application
         android:usesCleartextTraffic="true"

@@ -3,8 +3,31 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     
-    <!-- Override React Native library minSdk requirement for backward compatibility -->
-    <uses-sdk tools:overrideLibrary="com.facebook.react" />
+    <!-- Comprehensive override for backward compatibility with Android 4.4 (API 19) -->
+    <!-- WARNING: This forces all React Native libraries to ignore their minSdk requirements -->
+    <uses-sdk tools:overrideLibrary="
+        com.facebook.react,
+        com.facebook.fresco,
+        com.facebook.imagepipeline,
+        com.facebook.soloader,
+        com.facebook.hermes,
+        com.facebook.jni,
+        com.facebook.flipper,
+        com.facebook.yoga,
+        com.facebook.common,
+        com.facebook.datasource,
+        com.facebook.drawee,
+        com.facebook.imagepipeline,
+        com.facebook.react.bridge,
+        com.facebook.react.common,
+        com.facebook.react.module,
+        com.facebook.react.uimanager,
+        com.reactnativecommunity.asyncstorage,
+        androidx.lifecycle,
+        androidx.core,
+        androidx.annotation,
+        androidx.fragment,
+        androidx.activity" />
 
     <application
       android:name=".MainApplication"
