@@ -1,6 +1,6 @@
 import React from 'react';
-import SimpleJamvisApp from './SimpleJamvisApp';
+import BackwardCompatibleJamvisApp from './BackwardCompatibleJamvisApp';
 
 export default function App() {
-  return <SimpleJamvisApp />;
+  return <BackwardCompatibleJamvisApp />;
 }
