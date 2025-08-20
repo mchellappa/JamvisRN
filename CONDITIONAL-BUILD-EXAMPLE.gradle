@@ -1,0 +1,27 @@
+// Alternative android/app/build.gradle with multiple build variants
+
+android {
+    // ... existing config
+    
+    flavorDimensions "version"
+    productFlavors {
+        legacy {
+            dimension "version"
+            minSdkVersion 19
+            applicationIdSuffix ".legacy"
+            versionNameSuffix "-legacy"
+            
+            // Disable problematic features for old Android
+            buildConfigField "boolean", "ENABLE_FRESCO", "false"
+            buildConfigField "boolean", "ENABLE_HERMES", "false"
+        }
+        
+        modern {
+            dimension "version" 
+            minSdkVersion 21
+            // Full feature set enabled
+            buildConfigField "boolean", "ENABLE_FRESCO", "true"
+            buildConfigField "boolean", "ENABLE_HERMES", "true"
+        }
+    }
+}

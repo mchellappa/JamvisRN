@@ -3,39 +3,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     
-    <!-- Comprehensive override for backward compatibility with Android 4.4 (API 19) -->
-    <!-- WARNING: This forces all React Native libraries to ignore their minSdk requirements -->
-    <uses-sdk tools:overrideLibrary="
-        com.facebook.react,
-        com.facebook.fresco,
-        com.facebook.imagepipeline,
-        com.facebook.soloader,
-        com.facebook.hermes,
-        com.facebook.jni,
-        com.facebook.flipper,
-        com.facebook.yoga,
-        com.facebook.common,
-        com.facebook.datasource,
-        com.facebook.drawee,
-        com.facebook.drawee.backends,
-        com.facebook.drawee.backends.pipeline,
-        com.facebook.drawee.controller,
-        com.facebook.drawee.generic,
-        com.facebook.drawee.view,
-        com.facebook.imagepipeline.core,
-        com.facebook.imagepipeline.decoder,
-        com.facebook.imagepipeline.memory,
-        com.facebook.imagepipeline.cache,
-        com.facebook.react.bridge,
-        com.facebook.react.common,
-        com.facebook.react.module,
-        com.facebook.react.uimanager,
-        com.reactnativecommunity.asyncstorage,
-        androidx.lifecycle,
-        androidx.core,
-        androidx.annotation,
-        androidx.fragment,
-        androidx.activity" />
+    <!-- NUCLEAR OPTION: Override ALL libraries for Android 4.4 (API 19) compatibility -->
+    <!-- WARNING: This ignores ALL minSdk requirements - may cause runtime crashes -->
+    <uses-sdk tools:overrideLibrary="*" />
 
     <application
       android:name=".MainApplication"
