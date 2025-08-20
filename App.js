@@ -1,6 +1,8 @@
-import React from 'react';
-import BackwardCompatibleJamvisApp from './BackwardCompatibleJamvisApp';
+var React = require('react');
+var UltraSimpleApp = require('./UltraSimpleApp');
 
-export default function App() {
-  return React.createElement(BackwardCompatibleJamvisApp, null);
+function App() {
+  return React.createElement(UltraSimpleApp, null);
 }
+
+module.exports = App;

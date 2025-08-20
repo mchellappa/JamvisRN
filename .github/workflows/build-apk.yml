@@ -44,6 +44,14 @@ jobs:
         rm -rf node_modules package-lock.json
         npm install --legacy-peer-deps
         
+    - name: Generate Android bundle (dev mode for compatibility)
+      run: |
+        # Create assets directory if it doesn't exist
+        mkdir -p android/app/src/main/assets
+        
+        # Generate bundle in dev mode to avoid ES6 minification issues
+        npx react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --reset-cache
+        
     - name: Cache Gradle dependencies
       uses: actions/cache@v4
       with:
