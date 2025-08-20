@@ -1,6 +1,6 @@
 package com.jamvisrn
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
@@ -9,10 +9,11 @@ import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
-import com.facebook.react.flipper.ReactNativeFlipper
+// Flipper import removed for backward compatibility
+// import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
 
-class MainApplication : Application(), ReactApplication {
+class MainApplication : MultiDexApplication(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {
@@ -40,6 +41,7 @@ class MainApplication : Application(), ReactApplication {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       load()
     }
-    ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
+    // Flipper initialization removed for backward compatibility with older Android versions
+    // ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
   }
 }

@@ -8,12 +8,13 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
  */
 const config = {
   transformer: {
-    minifierPath: 'metro-minify-terser',
+    minifierPath: require.resolve('metro-minify-terser'),
     minifierConfig: {
       keep_fnames: true,
       mangle: {
         keep_fnames: true,
       },
+      ecma: 5, // Target ES5 for backward compatibility
     },
   },
 };

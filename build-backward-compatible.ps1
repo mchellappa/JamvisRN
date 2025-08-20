@@ -11,8 +11,8 @@ if (Test-Path "android\app\build") {
 
 # Clean Metro cache
 Write-Host "Clearing Metro cache..." -ForegroundColor Yellow
-npx react-native start --reset-cache &
-Start-Sleep -Seconds 3
+Start-Process -FilePath "npx" -ArgumentList "react-native", "start", "--reset-cache" -NoNewWindow
+Start-Sleep -Seconds 5
 Stop-Process -Name "node" -Force -ErrorAction SilentlyContinue
 
 # Generate bundle with ES5 compatibility
