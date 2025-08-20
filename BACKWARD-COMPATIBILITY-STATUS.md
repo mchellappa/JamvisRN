@@ -10,9 +10,15 @@
 - ❌ **Previous Error**: `uses-sdk:minSdkVersion 19 cannot be smaller than version 21 declared in library [com.facebook.react:react-android:0.73.6]`
 - ✅ **Solution**: Added `<uses-sdk tools:overrideLibrary="com.facebook.react" />` to both main and debug AndroidManifest.xml
 
-### 3. **Fresco Image Library Conflict**
-- ❌ **Previous Error**: `uses-sdk:minSdkVersion 19 cannot be smaller than version 21 declared in library [com.facebook.fresco:fresco:3.1.3]`
-- ✅ **Solution**: Added comprehensive library overrides: `tools:overrideLibrary="com.facebook.react,com.facebook.fresco,com.facebook.imagepipeline,com.facebook.soloader,com.facebook.hermes,com.facebook.jni"`
+### 3. **Fresco Image Library Conflicts (Multiple)**
+- ❌ **Error 1**: `com.facebook.fresco:fresco:3.1.3` requires API 21+
+- ❌ **Error 2**: `com.facebook.drawee.backends.pipeline` requires API 21+
+- ✅ **Solution**: Added comprehensive Fresco component overrides covering all sub-libraries:
+  - `com.facebook.fresco`
+  - `com.facebook.drawee` (all variants)
+  - `com.facebook.imagepipeline` (all variants)
+  - Fresco backends, controllers, views, memory management, etc.
+- 📈 **Status**: Enhanced from 6 libraries to 25+ specific overrides
 
 ### 4. **AsyncStorage Library Conflict** 
 - ❌ **Discovered Issue**: `@react-native-async-storage/async-storage@2.2.0` requires minSdkVersion 23 (Android 6.0+)
