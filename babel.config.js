@@ -1,4 +1,7 @@
 module.exports = {
   presets: ['@react-native/babel-preset'],
-  // Keep it simple - let React Native handle the transformations
+  plugins: [
+    // Transform ES6 modules to CommonJS for maximum compatibility
+    '@babel/plugin-transform-modules-commonjs',
+  ],
 };
