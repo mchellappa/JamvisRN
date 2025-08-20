@@ -2,10 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
-    <!-- NUCLEAR OPTION: Override ALL libraries for Android 4.4 (API 19) compatibility -->
-    <!-- WARNING: This ignores ALL minSdk requirements - may cause runtime crashes -->
-    <uses-sdk tools:overrideLibrary="*" />
 
     <application
       android:name=".MainApplication"
