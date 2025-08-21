@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import JarvisLogo from '../components/JarvisLogo';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -45,6 +46,8 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <JarvisLogo size={120} style={styles.logo} />
+      
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Jamvis Login</Text>
         <TouchableOpacity 
@@ -74,32 +77,35 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#f5f5f5' },
+  container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#001a1a' },
+  logo: { marginBottom: 30, alignSelf: 'center' },
   titleContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center' },
+  title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', color: '#00ffff' },
   helpButton: { 
     marginLeft: 10, 
     width: 24, 
     height: 24, 
     borderRadius: 12, 
-    backgroundColor: '#007AFF', 
+    backgroundColor: '#00ffff', 
     alignItems: 'center', 
     justifyContent: 'center' 
   },
-  helpIcon: { color: 'white', fontSize: 14, fontWeight: 'bold' },
+  helpIcon: { color: '#001a1a', fontSize: 14, fontWeight: 'bold' },
   tooltip: { 
     backgroundColor: '#333', 
     padding: 15, 
     borderRadius: 8, 
     marginBottom: 20,
-    shadowColor: '#000',
+    shadowColor: '#00ffff',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    borderWidth: 1,
+    borderColor: '#00cccc',
   },
-  tooltipTitle: { color: '#fff', fontSize: 14, fontWeight: 'bold', marginBottom: 8 },
+  tooltipTitle: { color: '#00ffff', fontSize: 14, fontWeight: 'bold', marginBottom: 8 },
   tooltipText: { color: '#fff', fontSize: 12, marginBottom: 2 },
-  input: { borderWidth: 1, marginBottom: 10, padding: 12, borderRadius: 8, backgroundColor: 'white', borderColor: '#ddd' },
-  error: { color: 'red', marginBottom: 10, textAlign: 'center' },
+  input: { borderWidth: 1, marginBottom: 10, padding: 12, borderRadius: 8, backgroundColor: 'rgba(0, 255, 255, 0.1)', borderColor: '#00cccc', color: '#fff' },
+  error: { color: '#ff4444', marginBottom: 10, textAlign: 'center' },
 });
