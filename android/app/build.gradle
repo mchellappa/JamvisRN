@@ -89,10 +89,10 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     
-    // Configure compatibility for older Android versions
+    // Configure compatibility for newer Android versions
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     
     signingConfigs {
@@ -139,6 +139,6 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 // Kotlin compilation options to fix react-native-screens compilation issues
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
