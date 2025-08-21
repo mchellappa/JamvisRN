@@ -1,30 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Image } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
 // JARVIS Logo Component
-// TODO: Replace with actual logo image file saved as assets/jarvis-logo.png
 export default function JarvisLogo({ size = 120, style = {} }) {
   return (
     <View style={[styles.logoContainer, { width: size, height: size }, style]}>
-      {/* Placeholder for JARVIS logo */}
-      {/* 
-        Usage: 
-        1. Save the futuristic JARVIS logo image as 'assets/jarvis-logo.png'
-        2. Replace this View with:
-        <Image 
-          source={require('../assets/jarvis-logo.png')} 
-          style={[styles.logo, { width: size, height: size }]}
-          resizeMode="contain"
-        />
-      */}
+      {/* JARVIS logo */}
       <View style={[styles.placeholderLogo, { width: size, height: size }]}>
         {/* Circular border effect similar to the logo */}
         <View style={[styles.outerRing, { width: size, height: size }]} />
         <View style={[styles.innerRing, { width: size * 0.85, height: size * 0.85 }]} />
         <View style={styles.centerText}>
-          {/* This will be replaced by the actual logo image */}
+          <Image 
+            source={require('../assets/jarvis-logo.png')} 
+            style={[styles.logo, { width: size * 0.7, height: size * 0.7 }]}
+            resizeMode="contain"
+          />
         </View>
       </View>
     </View>
