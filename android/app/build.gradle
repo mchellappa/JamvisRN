@@ -13,8 +13,8 @@ apply plugin: "com.facebook.reacdependencies {
     // Flipper integration disabled for backward compatibility with older Android versions
     // implementation("com.facebook.react:flipper-integration")
     
-    // MultiDex support for older Android versions
-    implementation 'androidx.multidex:multidex:2.0.1'
+    // MultiDx support for older Android versions
+    implementation 'androidx.multidx:multidx:2.0.1'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
