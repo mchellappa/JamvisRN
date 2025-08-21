@@ -1,8 +1,6 @@
-var React = require('react');
-var UltraSimpleApp = require('./UltraSimpleApp');
+import React from 'react';
+import UltraSimpleApp from './UltraSimpleApp';
 
-function App() {
-  return React.createElement(UltraSimpleApp, null);
+export default function App() {
+  return <UltraSimpleApp />;
 }
-
-module.exports = App;
