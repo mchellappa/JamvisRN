@@ -1,9 +1,27 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
-apply plugin: "com.facebook.react"
+apply plugin: "com.facebook.react"dependencies {
+    // The version of react-native is set by the React Native Gradle Plugin
+    implementation("com.facebook.react:react-android")
+    
+    // Force specific versions to resolve compatibility issues
+    implementation("androidx.core:core:1.13.1")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.fragment:fragment:1.6.2")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    
+    // Flipper integration disabled for backward compatibility with older Android versions
+    // implementation("com.facebook.react:flipper-integration")
+    
+    // MultiDex support for older Android versions
+    implementation 'androidx.multidex:multidex:2.0.1'
 
-/**
- * This is the configuration block to customize your React Native Android app.
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+} the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
 react {

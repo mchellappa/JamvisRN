@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        buildToolsVersion = "35.0.0"
+        buildToolsVersion = "34.0.0"
         minSdkVersion = 21
-        compileSdkVersion = 35
+        compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8937393"
         kotlinVersion = "1.9.10"
@@ -22,6 +22,21 @@ apply plugin: "com.facebook.react.rootproject"
 
 // Global Kotlin compilation options to fix react-native-screens issues
 allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }
+    }
+    
+    configurations.all {
+        resolutionStrategy {
+            force "androidx.core:core:1.13.1"
+            force "androidx.core:core-ktx:1.13.1"
+            force "androidx.fragment:fragment:1.6.2"
+            force "androidx.fragment:fragment-ktx:1.6.2"
+        }
+    }
+    
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions {
             jvmTarget = "17"

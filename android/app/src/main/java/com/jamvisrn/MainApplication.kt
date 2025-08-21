@@ -12,7 +12,6 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 // Flipper import removed for backward compatibility
 // import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage
 
 class MainApplication : MultiDexApplication(), ReactApplication {
 
