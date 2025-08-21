@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -12,6 +13,7 @@ export default function LoginScreen({ navigation }) {
       const res = await axios.post('http://localhost:8000/login', null, {
         params: { username, password },
       });
+      await AsyncStorage.setItem('user', username); // Save login state
       navigation.replace('Workouts');
     } catch (err) {
       setError('Login failed');

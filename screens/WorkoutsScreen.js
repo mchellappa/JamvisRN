@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function WorkoutsScreen({ navigation }) {
   const [workout, setWorkout] = useState(null);
   const username = 'demo'; // Replace with actual user
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/workouts/today?username=${username}`)
-      .then(res => setWorkout(res.data))
-      .catch(() => setWorkout(null));
+    AsyncStorage.getItem('user').then((savedUser) => {
+      const user = savedUser || username;
+      axios.get(`http://localhost:8000/workouts/today?username=${user}`)
+        .then(res => {
+          setWorkout(res.data);
+          AsyncStorage.setItem('workout_today', JSON.stringify(res.data)); // Save workout locally
+        })
+        .catch(() => {
+          // Try to load from local storage if network fails
+          AsyncStorage.getItem('workout_today').then((localWorkout) => {
+            if (localWorkout) setWorkout(JSON.parse(localWorkout));
+            else setWorkout(null);
+          });
+        });
+    });
   }, []);
 
   return (
