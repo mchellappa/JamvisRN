@@ -1,6 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
-apply plugin: "com.facebook.react"dependencies {
+apply plugin: "com.facebook.reacdependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     
@@ -21,7 +21,7 @@ apply plugin: "com.facebook.react"dependencies {
     } else {
         implementation jscFlavor
     }
-} the configuration block to customize your React Native Android app.
+}is is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
 react {
