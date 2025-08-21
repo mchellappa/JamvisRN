@@ -14,6 +14,11 @@ module.exports = {
     alias: {
       'react-native$': 'react-native-web',
       'react-native/Libraries/Renderer/shims/ReactNativePropRegistry$': 'react-native-web/dist/modules/ReactNativePropRegistry',
+      '@react-native-async-storage/async-storage': path.resolve(__dirname, 'web/AsyncStoragePolyfill.js'),
+    },
+    fallback: {
+      'fs': false,
+      'path': false,
     },
   },
   module: {

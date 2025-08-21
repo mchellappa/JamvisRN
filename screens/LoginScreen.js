@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,22 +7,64 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:8000/login', null, {
-        params: { username, password },
-      });
-      await AsyncStorage.setItem('user', username); // Save login state
-      navigation.replace('Workouts');
+      // Default credentials for testing
+      const validCredentials = [
+        { username: 'admin', password: 'admin123' },
+        { username: 'user', password: 'password' },
+        { username: 'jamvis', password: 'jamvis2025' }
+      ];
+
+      // Check if credentials match any valid combination
+      const isValid = validCredentials.some(
+        cred => cred.username === username && cred.password === password
+      );
+
+      if (isValid) {
+        await AsyncStorage.setItem('user', username); // Save login state
+        navigation.replace('Workouts');
+      } else {
+        // Try API call as fallback (if backend is available)
+        try {
+          const res = await axios.post('http://localhost:8000/login', null, {
+            params: { username, password },
+          });
+          await AsyncStorage.setItem('user', username);
+          navigation.replace('Workouts');
+        } catch (apiErr) {
+          setError('Invalid username or password. Try: admin/admin123 or user/password');
+        }
+      }
     } catch (err) {
-      setError('Login failed');
+      setError('Login failed. Try: admin/admin123 or user/password');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Jamvis Login</Text>
+        <TouchableOpacity 
+          style={styles.helpButton}
+          onPress={() => setShowTooltip(!showTooltip)}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.helpIcon}>?</Text>
+        </TouchableOpacity>
+      </View>
+      
+      {showTooltip && (
+        <View style={styles.tooltip}>
+          <Text style={styles.tooltipTitle}>Default Test Credentials:</Text>
+          <Text style={styles.tooltipText}>• admin / admin123</Text>
+          <Text style={styles.tooltipText}>• user / password</Text>
+          <Text style={styles.tooltipText}>• jamvis / jamvis2025</Text>
+        </View>
+      )}
+      
       <TextInput placeholder="Username" value={username} onChangeText={setUsername} style={styles.input} />
       <TextInput placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
       {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -32,8 +74,32 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  title: { fontSize: 24, marginBottom: 20 },
-  input: { borderWidth: 1, marginBottom: 10, padding: 8, borderRadius: 4 },
-  error: { color: 'red', marginBottom: 10 },
+  container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#f5f5f5' },
+  titleContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center' },
+  helpButton: { 
+    marginLeft: 10, 
+    width: 24, 
+    height: 24, 
+    borderRadius: 12, 
+    backgroundColor: '#007AFF', 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
+  helpIcon: { color: 'white', fontSize: 14, fontWeight: 'bold' },
+  tooltip: { 
+    backgroundColor: '#333', 
+    padding: 15, 
+    borderRadius: 8, 
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  tooltipTitle: { color: '#fff', fontSize: 14, fontWeight: 'bold', marginBottom: 8 },
+  tooltipText: { color: '#fff', fontSize: 12, marginBottom: 2 },
+  input: { borderWidth: 1, marginBottom: 10, padding: 12, borderRadius: 8, backgroundColor: 'white', borderColor: '#ddd' },
+  error: { color: 'red', marginBottom: 10, textAlign: 'center' },
 });
