@@ -1,4 +1,4 @@
-﻿apply plugin: "com.android.application"
+apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
@@ -47,7 +47,7 @@ react {
 
     /* Hermes Commands */
     //   The hermes command to run. By default it is 'hermesc'
-    // hermesCommand = "/my-custom-hermesc/bin/hermesc"
+    // hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
@@ -132,7 +132,7 @@ dependencies {
     // implementation("com.facebook.react:flipper-integration")
     
     // MultiDex support for older Android versions
-    implementation 'androidx.multidx:multidx:2.0.1'
+    implementation 'androidx.multidex:multidx:2.0.1'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
