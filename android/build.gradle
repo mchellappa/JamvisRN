@@ -5,6 +5,7 @@ buildscript {
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8937393"
+        kotlinVersion = "1.8.22"
     }
     repositories {
         google()
@@ -13,6 +14,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:8.6.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
 
@@ -32,6 +34,13 @@ allprojects {
             force "androidx.core:core-ktx:1.13.1"
             force "androidx.fragment:fragment:1.6.2"
             force "androidx.fragment:fragment-ktx:1.6.2"
+        }
+    }
+    
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "17"
+            freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
         }
     }
     
