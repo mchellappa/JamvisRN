@@ -4,15 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, develop ]
-    paths: 
-      - 'package.json'
-      - 'App.js'
-      - 'app.json'
-      - 'eas.json'
-      - 'credentials.json'
-      - 'android/app/debug.keystore'
-      - 'screens/**'
-      - '.github/workflows/eas-build.yml'
   pull_request:
     branches: [ main, develop ]
 
