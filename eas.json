@@ -13,14 +13,16 @@
         "buildType": "apk",
         "gradleCommand": ":app:assembleDebug"
       },
-      "distribution": "internal"
+      "distribution": "internal",
+      "credentialsSource": "local"
     },
     "debug": {
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleDebug"
       },
-      "distribution": "internal"
+      "distribution": "internal",
+      "credentialsSource": "local"
     },
     "production": {}
   },
