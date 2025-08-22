@@ -82,8 +82,8 @@ android {
         versionCode 1
         versionName "1.0"
         
-        // Add multiDx support for older Android versions
-        multiDxEnabled true
+        // Add multiDex support for older Android versions
+        multiDexEnabled true
         
         // Disable vector drawable support for older versions
         vectorDrawables.useSupportLibrary = true
@@ -130,8 +130,8 @@ dependencies {
     // Flipper integration disabled for backward compatibility with older Android versions
     // implementation("com.facebook.react:flipper-integration")
     
-    // MultiDx support for older Android versions
-    implementation 'androidx.multidx:multidx:2.0.1'
+    // MultiDex support for older Android versions
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
