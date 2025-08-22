@@ -116,21 +116,9 @@ android {
     }
 }
 
-configurations.all {
-    exclude group: 'io.coil-kt'
-    exclude module: 'coil'
-    exclude module: 'coil-base'
-    exclude module: 'coil-compose'
-}
-
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
-    implementation("com.facebook.react:react-android") {
-        exclude group: 'io.coil-kt'
-        exclude module: 'coil'
-        exclude module: 'coil-base'
-        exclude module: 'coil-compose'
-    }
+    implementation("com.facebook.react:react-android")
     
     // Force specific versions to resolve compatibility issues
     implementation("androidx.core:core:1.13.1")
