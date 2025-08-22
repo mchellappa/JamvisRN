@@ -1,4 +1,4 @@
-﻿apply plugin: "com.android.application"
+apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android" 
 apply plugin: "com.facebook.react"
 
@@ -82,8 +82,8 @@ android {
         versionCode 1
         versionName "1.0"
         
-        // Add multiDex support for older Android versions
-        multiDexEnabled true
+        // Add multiDx support for older Android versions
+        multiDxEnabled true
         
         // Disable vector drawable support for older versions
         vectorDrawables.useSupportLibrary = true
@@ -130,8 +130,8 @@ dependencies {
     // Flipper integration disabled for backward compatibility with older Android versions
     // implementation("com.facebook.react:flipper-integration")
     
-    // MultiDex support for older Android versions
-    implementation 'androidx.multidex:multidx:2.0.1'
+    // MultiDx support for older Android versions
+    implementation 'androidx.multidx:multidx:2.0.1'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
