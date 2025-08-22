@@ -5,7 +5,7 @@ buildscript {
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8937393"
-        kotlinVersion = "2.0.20"
+        kotlinVersion = "1.9.24"
     }
     repositories {
         google()
@@ -34,6 +34,14 @@ allprojects {
             force "androidx.core:core-ktx:1.13.1"
             force "androidx.fragment:fragment:1.6.2"
             force "androidx.fragment:fragment-ktx:1.6.2"
+            
+            // Force exclusion of problematic Coil dependencies with newer Kotlin metadata
+            eachDependency { details ->
+                if (details.requested.group.startsWith('io.coil-kt') || 
+                    details.requested.name.contains('coil')) {
+                    details.useVersion '2.4.0' // Use older compatible version
+                }
+            }
         }
     }
     
