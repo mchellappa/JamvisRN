@@ -1,4 +1,4 @@
-name: EAS Build Android APK
+name: EAS Build Android Debug APK
 
 on:
   workflow_dispatch:
@@ -83,13 +83,13 @@ jobs:
         echo "📋 Final EAS project status:"
         eas project:info || echo "Project info will be available after first build"
         
-    - name: EAS Build (Preview APK) 
+    - name: EAS Build (Debug APK) 
       run: |
-        echo "🚀 Starting EAS Build for Android APK..."
+        echo "🚀 Starting EAS Build for Android Debug APK..."
         
-        # Build with the preview profile, letting EAS handle project setup if needed
-        echo "📦 Building APK with preview profile..."
-        eas build --platform android --profile preview --non-interactive --wait
+        # Build with the debug profile (uses debug keystore, no signing issues)
+        echo "📦 Building Debug APK..."
+        eas build --platform android --profile debug --non-interactive --wait
         
         echo "✅ Build completed successfully!"
         
@@ -128,7 +128,7 @@ jobs:
         echo "## 🚀 EAS Build Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Platform:** Android" >> $GITHUB_STEP_SUMMARY
-        echo "**Profile:** Preview (APK)" >> $GITHUB_STEP_SUMMARY
+        echo "**Profile:** Debug (APK with debug keystore)" >> $GITHUB_STEP_SUMMARY
         echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
         echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
