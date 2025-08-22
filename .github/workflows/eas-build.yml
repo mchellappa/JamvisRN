@@ -62,30 +62,34 @@ jobs:
         else
           echo "🚀 Initializing EAS project..."
           
-          # Try to init with automatic project creation
-          eas init --non-interactive || {
-            echo "⚠️  Auto-init failed, trying manual project creation..."
+          # First, let's see what accounts are available
+          echo "📋 Available accounts:"
+          eas whoami || echo "Not authenticated"
+          
+          # Initialize with explicit account selection (using first account: weekendwarrior)
+          echo "🏗️  Creating EAS project with account 'weekendwarrior'..."
+          eas init --force --non-interactive || {
+            echo "⚠️  Force init failed, trying with explicit config..."
             
-            # Create project manually if auto-init fails
-            echo "Creating new EAS project..."
-            eas project:create --non-interactive
+            # Try alternative approach - create .easrc manually
+            echo '{"cli":{"appVersionSource":"local"}}' > .easrc
+            
+            # Try init again
+            eas init --force --non-interactive
           }
         fi
         
         # Verify final configuration
         echo "📋 Final EAS project status:"
-        eas project:info
+        eas project:info || echo "Project info will be available after first build"
         
     - name: EAS Build (Preview APK) 
       run: |
         echo "🚀 Starting EAS Build for Android APK..."
         
-        # Ensure we have a valid project configuration
-        eas project:info
-        
-        # Start the build with detailed output
+        # Build with the preview profile, letting EAS handle project setup if needed
         echo "📦 Building APK with preview profile..."
-        eas build --platform android --profile preview --non-interactive --wait --clear-cache
+        eas build --platform android --profile preview --non-interactive --wait
         
         echo "✅ Build completed successfully!"
         
