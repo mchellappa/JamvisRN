@@ -1,8 +1,8 @@
+package com.jamvisrn;
+
 import android.content.res.Configuration;
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
-package com.jamvisrn;
-
 import androidx.multidex.MultiDexApplication;
 
 import com.facebook.react.PackageList;
