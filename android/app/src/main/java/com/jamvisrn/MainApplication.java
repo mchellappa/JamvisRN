@@ -1,3 +1,6 @@
+import android.content.res.Configuration;
+import expo.modules.ApplicationLifecycleDispatcher;
+import expo.modules.ReactNativeHostWrapper;
 package com.jamvisrn;
 
 import androidx.multidex.MultiDexApplication;
@@ -17,7 +20,7 @@ import java.util.List;
 public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
-      new DefaultReactNativeHost(this) {
+      new ReactNativeHostWrapper(this, new DefaultReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
@@ -34,7 +37,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 
         @Override
         protected String getJSMainModuleName() {
-          return "index";
+          return ".expo/.virtual-metro-entry";
         }
 
         @Override
@@ -46,7 +49,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected Boolean isHermesEnabled() {
           return BuildConfig.IS_HERMES_ENABLED;
         }
-      };
+      });
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -67,5 +70,12 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
       DefaultNewArchitectureEntryPoint.load();
     }
     // Flipper initialization removed for backward compatibility with older Android versions
+    ApplicationLifecycleDispatcher.onApplicationCreate(this);
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig);
   }
 }

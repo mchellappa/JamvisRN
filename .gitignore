@@ -185,3 +185,8 @@ android/local.properties
 
 # Keep gradle wrapper directory - needed for building
 # android/gradle/  # REMOVED - we need gradle/wrapper/
+
+# Expo
+.expo
+dist/
+web-build/

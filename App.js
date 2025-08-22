@@ -1,30 +1,39 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
 import WorkoutsScreen from './screens/WorkoutsScreen';
 import MealsScreen from './screens/MealsScreen';
 import GroceryListScreen from './screens/GroceryListScreen';
 
-const Stack = createStackNavigator();
-
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState('Login');
+  const [user, setUser] = useState(null);
+
+  const navigate = (screenName, params = {}) => {
+    if (params.user) {
+      setUser(params.user);
+    }
+    setCurrentScreen(screenName);
+  };
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'Login':
+        return <LoginScreen navigation={{ navigate }} />;
+      case 'Workouts':
+        return <WorkoutsScreen navigation={{ navigate }} user={user} />;
+      case 'Meals':
+        return <MealsScreen navigation={{ navigate }} user={user} />;
+      case 'GroceryList':
+        return <GroceryListScreen navigation={{ navigate }} user={user} />;
+      default:
+        return <LoginScreen navigation={{ navigate }} />;
+    }
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator 
-        initialRouteName="Login"
-        screenOptions={{
-          headerStyle: { backgroundColor: '#001a1a' },
-          headerTintColor: '#00ffff',
-          headerTitleStyle: { fontWeight: 'bold' },
-          cardStyle: { backgroundColor: '#001a1a' },
-        }}
-      >
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Workouts" component={WorkoutsScreen} />
-        <Stack.Screen name="Meals" component={MealsScreen} />
-        <Stack.Screen name="GroceryList" component={GroceryListScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{ flex: 1, backgroundColor: '#001a1a' }}>
+      {renderScreen()}
+    </View>
   );
 }
