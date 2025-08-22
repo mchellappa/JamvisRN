@@ -146,5 +146,6 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "17"
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 }
