@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
 import WorkoutsScreen from './screens/WorkoutsScreen';
 import MealsScreen from './screens/MealsScreen';
 import GroceryListScreen from './screens/GroceryListScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
