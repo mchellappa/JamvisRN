@@ -52,6 +52,7 @@ If you see SSL certificate errors locally:
 ```bash
 # This is why we use GitHub Actions instead of local builds
 npm config set strict-ssl false  # Not recommended for production
+V5P9IGyNzergFB_HE9vchpaTMsnsOqg6IErGoIOM
 ```
 
 ### Build Failures

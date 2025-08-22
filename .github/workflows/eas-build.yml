@@ -52,10 +52,42 @@ jobs:
         npm cache clean --force
         npm install --legacy-peer-deps
         
-    - name: EAS Build (Preview APK)
+    - name: Initialize EAS Project
+      run: |
+        echo "🔧 Checking EAS project configuration..."
+        
+        # Check if project is already linked
+        if eas project:info 2>/dev/null; then
+          echo "✅ EAS project already configured"
+        else
+          echo "🚀 Initializing EAS project..."
+          
+          # Try to init with automatic project creation
+          eas init --non-interactive || {
+            echo "⚠️  Auto-init failed, trying manual project creation..."
+            
+            # Create project manually if auto-init fails
+            echo "Creating new EAS project..."
+            eas project:create --non-interactive
+          }
+        fi
+        
+        # Verify final configuration
+        echo "📋 Final EAS project status:"
+        eas project:info
+        
+    - name: EAS Build (Preview APK) 
       run: |
         echo "🚀 Starting EAS Build for Android APK..."
-        eas build --platform android --profile preview --non-interactive --wait
+        
+        # Ensure we have a valid project configuration
+        eas project:info
+        
+        # Start the build with detailed output
+        echo "📦 Building APK with preview profile..."
+        eas build --platform android --profile preview --non-interactive --wait --clear-cache
+        
+        echo "✅ Build completed successfully!"
         
     - name: Download APK from EAS
       run: |
