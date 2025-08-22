@@ -9,6 +9,8 @@ on:
       - 'App.js'
       - 'app.json'
       - 'eas.json'
+      - 'credentials.json'
+      - 'android/app/debug.keystore'
       - 'screens/**'
       - '.github/workflows/eas-build.yml'
   pull_request:
@@ -51,6 +53,43 @@ jobs:
       run: |
         npm cache clean --force
         npm install --legacy-peer-deps
+        
+    - name: Verify Build Files
+      run: |
+        echo "🔍 Verifying required build files..."
+        
+        echo "📋 Repository contents:"
+        ls -la
+        
+        echo ""
+        echo "🔑 Checking credentials.json..."
+        if [ -f "credentials.json" ]; then
+          echo "✅ credentials.json found"
+          cat credentials.json
+        else
+          echo "❌ credentials.json missing!"
+          exit 1
+        fi
+        
+        echo ""
+        echo "🔐 Checking debug keystore..."
+        if [ -f "android/app/debug.keystore" ]; then
+          echo "✅ debug.keystore found"
+          ls -la android/app/debug.keystore
+        else
+          echo "❌ debug.keystore missing!"
+          exit 1
+        fi
+        
+        echo ""
+        echo "📝 Checking eas.json configuration..."
+        if [ -f "eas.json" ]; then
+          echo "✅ eas.json found"
+          cat eas.json
+        else
+          echo "❌ eas.json missing!"
+          exit 1
+        fi
         
     - name: Initialize EAS Project
       run: |
