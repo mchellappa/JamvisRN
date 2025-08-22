@@ -10,7 +10,10 @@
     "test": "jest",
     "web:dev": "webpack serve --config webpack.config.js --open",
     "web:build": "webpack --config webpack.config.js --mode production",
-    "desktop": "npm run web:dev"
+    "desktop": "npm run web:dev",
+    "build:android": "eas build --platform android",
+    "build:android:preview": "eas build --platform android --profile preview",
+    "build:android:debug": "eas build --platform android --profile debug"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
