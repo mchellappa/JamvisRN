@@ -18,7 +18,11 @@
       "env": {
         "NODE_ENV": "development",
         "METRO_MINIFY": "false",
-        "EXPO_BUNDLE_MINIFY": "false"
+        "EXPO_BUNDLE_MINIFY": "false",
+        "BABEL_ENV": "development",
+        "RN_BUNDLE_MINIFY": "false",
+        "TERSER_DISABLE": "true",
+        "UGLIFY_DISABLE": "true"
       }
     },
     "debug": {
@@ -31,7 +35,11 @@
       "env": {
         "NODE_ENV": "development",
         "METRO_MINIFY": "false",
-        "EXPO_BUNDLE_MINIFY": "false"
+        "EXPO_BUNDLE_MINIFY": "false",
+        "BABEL_ENV": "development",
+        "RN_BUNDLE_MINIFY": "false",
+        "TERSER_DISABLE": "true",
+        "UGLIFY_DISABLE": "true"
       }
     },
     "production": {}
