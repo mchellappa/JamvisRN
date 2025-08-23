@@ -22,7 +22,9 @@
         "BABEL_ENV": "development",
         "RN_BUNDLE_MINIFY": "false",
         "TERSER_DISABLE": "true",
-        "UGLIFY_DISABLE": "true"
+        "UGLIFY_DISABLE": "true",
+        "RN_NO_NATIVE_MODULES": "false",
+        "EXPO_USE_HERMES": "false"
       }
     },
     "debug": {
@@ -39,7 +41,9 @@
         "BABEL_ENV": "development",
         "RN_BUNDLE_MINIFY": "false",
         "TERSER_DISABLE": "true",
-        "UGLIFY_DISABLE": "true"
+        "UGLIFY_DISABLE": "true",
+        "RN_NO_NATIVE_MODULES": "false",
+        "EXPO_USE_HERMES": "false"
       }
     },
     "production": {}

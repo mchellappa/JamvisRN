@@ -1,44 +1,40 @@
 {
   "name": "Jamvis",
-  "displayName": "Jamvis",
-  "expo": {
-    "name": "Jamvis",
-    "slug": "jamvis",
-    "owner": "weekendwarrior",
-    "version": "1.0.0",
-    "sdkVersion": "53.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+  "slug": "jamvis",
+  "owner": "weekendwarrior", 
+  "version": "1.0.0",
+  "sdkVersion": "53.0.0",
+  "orientation": "portrait",
+  "icon": "./assets/icon.png",
+  "userInterfaceStyle": "dark",
+  "splash": {
+    "image": "./assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#001a1a"
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
       "backgroundColor": "#001a1a"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#001a1a"
-      },
-      "package": "com.jamvisrn"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 35,
-            "targetSdkVersion": 35,
-            "minSdkVersion": 23
-          }
+    "package": "com.jamvisrn"
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "plugins": [
+    [
+      "expo-build-properties",
+      {
+        "android": {
+          "compileSdkVersion": 35,
+          "targetSdkVersion": 35,
+          "minSdkVersion": 23
         }
-      ]
+      }
     ]
-  }
+  ]
 }

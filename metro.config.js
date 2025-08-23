@@ -23,6 +23,10 @@ const config = {
       },
     },
   },
+  resolver: {
+    // Resolve React Native modules with proper types
+    sourceExts: ['js', 'jsx', 'ts', 'tsx', 'json'],
+  },
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
