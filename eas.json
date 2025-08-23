@@ -16,7 +16,9 @@
       "distribution": "internal",
       "credentialsSource": "local",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "METRO_MINIFY": "false",
+        "EXPO_BUNDLE_MINIFY": "false"
       }
     },
     "debug": {
@@ -27,7 +29,9 @@
       "distribution": "internal",
       "credentialsSource": "local",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "METRO_MINIFY": "false",
+        "EXPO_BUNDLE_MINIFY": "false"
       }
     },
     "production": {}
