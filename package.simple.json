@@ -9,12 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native/babel-preset": "^0.80.2",
-    "@react-native/js-polyfills": "^0.80.2",
-    "@react-native/metro-config": "^0.80.2",
     "expo": "~53.0.22",
     "expo-status-bar": "~2.2.3",
-    "metro": "^0.82.5",
     "react": "19.0.0",
     "react-native": "0.79.5"
   },
